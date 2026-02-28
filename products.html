@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laziz Products — Pro Brainwaves Investment Ltd</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b3c;
+    --green-light: #2d9d5c;
+    --green-pale: #e8f5ee;
+    --gold: #c8972a;
+    --gold-light: #f0c853;
+    --gold-pale: #fdf6e3;
+    --dark: #0d1f14;
+    --text: #1e2e23;
+    --text-muted: #5a7263;
+    --white: #ffffff;
+    --off-white: #f7faf8;
+    --border: #d4e8db;
+    --red: #c0392b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 20px rgba(26,107,60,0.07);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-icon { width: 42px; height: 42px; background: var(--green); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .nav-logo-icon svg { width: 22px; height: 22px; }
+  .nav-logo-text strong { display: block; font-family: 'Playfair Display', serif; font-size: 15px; color: var(--dark); font-weight: 700; }
+  .nav-logo-text span { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--green); }
+  .nav-cta { background: var(--green); color: white; text-decoration: none; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--green-light); }
+
+  /* HERO */
+  .hero {
+    margin-top: 77px;
+    background: var(--dark);
+    padding: 80px 60px;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; gap: 60px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 55% 90% at 90% 50%, rgba(200,151,42,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 10% 50%, rgba(26,107,60,0.2) 0%, transparent 55%);
+  }
+  .hero-text { position: relative; flex: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(200,151,42,0.15); border: 1px solid rgba(200,151,42,0.3);
+    color: var(--gold-light); padding: 6px 16px; border-radius: 100px;
+    font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(42px, 5vw, 68px); font-weight: 900; color: white; line-height: 1.05; margin-bottom: 20px; }
+  .hero h1 em { color: var(--gold-light); font-style: normal; }
+  .hero p { font-size: 17px; color: rgba(255,255,255,0.6); line-height: 1.7; max-width: 500px; }
+  .hero-brand { position: relative; display: flex; align-items: center; justify-content: center; }
+  .hero-brand-circle {
+    width: 260px; height: 260px; border-radius: 50%;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    text-align: center; padding: 30px; flex-shrink: 0;
+  }
+  .hero-brand-circle .brand-name { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; color: var(--gold-light); letter-spacing: -1px; }
+  .hero-brand-circle .brand-sub { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .hero-brand-circle .brand-line { width: 40px; height: 2px; background: var(--gold); margin: 12px auto; }
+  .hero-brand-circle .brand-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  /* FILTER BAR */
+  .filter-bar {
+    background: var(--off-white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+    display: flex; align-items: center; gap: 8px;
+    position: sticky; top: 77px; z-index: 90;
+  }
+  .filter-label { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-right: 8px; white-space: nowrap; }
+  .filter-btn {
+    padding: 14px 20px; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; border: none; cursor: pointer;
+    background: transparent; color: var(--text-muted);
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { color: var(--green); }
+  .filter-btn.active { color: var(--green); border-bottom-color: var(--green); font-weight: 600; }
+
+  /* PRODUCTS SECTION */
+  .products-section { padding: 60px 60px 100px; max-width: 1400px; margin: 0 auto; }
+
+  .category-block { margin-bottom: 70px; }
+  .category-header {
+    display: flex; align-items: center; gap: 20px; margin-bottom: 32px;
+    padding-bottom: 20px; border-bottom: 1px solid var(--border);
+  }
+  .category-icon { font-size: 32px; }
+  .category-header h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--dark); }
+  .category-header p { font-size: 14px; color: var(--text-muted); margin-top: 2px; }
+  .category-count { margin-left: auto; background: var(--green-pale); color: var(--green); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+
+  /* PRODUCT CARD */
+  .product-card {
+    background: white; border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    animation: fadeUp 0.5s ease both;
+  }
+  .product-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(26,107,60,0.13); }
+
+  .product-img-wrap {
+    aspect-ratio: 1; background: var(--off-white);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .product-img-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 20px; transition: transform 0.4s ease; }
+  .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+
+  /* SVG Product Illustrations */
+  .product-illustration {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+  }
+
+  .tag-new, .tag-popular, .tag-sale {
+    position: absolute; top: 12px; right: 12px;
+    font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.5px;
+  }
+  .tag-new { background: var(--green); color: white; }
+  .tag-popular { background: var(--gold); color: white; }
+  .tag-sale { background: var(--red); color: white; }
+
+  .product-body { padding: 20px 22px 22px; }
+  .product-brand { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .product-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 6px; line-height: 1.2; }
+  .product-variants { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .variant-chip { font-size: 12px; background: var(--green-pale); color: var(--green); padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+  .product-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; }
+  .product-footer .moq { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .product-footer .moq span { color: var(--green); font-weight: 700; }
+  .btn-order {
+    background: var(--green); color: white; text-decoration: none;
+    padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    transition: background 0.2s, transform 0.15s;
+    border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  }
+  .btn-order:hover { background: var(--green-light); transform: translateY(-1px); }
+
+  /* BANNER */
+  .cta-banner {
+    background: var(--dark); border-radius: 24px; padding: 60px;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    margin: 0 60px 80px; position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: rgba(200,151,42,0.08); pointer-events: none;
+  }
+  .cta-banner h2 { font-family: 'Playfair Display', serif; font-size: 34px; color: white; margin-bottom: 12px; }
+  .cta-banner p { color: rgba(255,255,255,0.55); font-size: 16px; line-height: 1.7; max-width: 500px; }
+  .cta-banner-btns { display: flex; gap: 14px; flex-shrink: 0; flex-direction: column; }
+  .btn-gold { background: var(--gold); color: var(--dark); text-decoration: none; padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 15px; white-space: nowrap; text-align: center; transition: all 0.2s; }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(200,151,42,0.3); }
+  .btn-ghost { border: 1.5px solid rgba(255,255,255,0.2); color: white; text-decoration: none; padding: 14px 32px; border-radius: 10px; font-weight: 500; font-size: 15px; white-space: nowrap; text-align: center; transition: all 0.2s; }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); }
+
+  /* FOOTER */
+  footer { background: var(--dark); padding: 40px 60px; border-top: 1px solid rgba(255,255,255,0.07); }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
+  footer p { color: rgba(255,255,255,0.3); font-size: 13px; }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  footer a:hover { color: var(--green-light); }
+  footer .foot-links { display: flex; gap: 28px; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .product-card:nth-child(2) { animation-delay: 0.05s; }
+  .product-card:nth-child(3) { animation-delay: 0.1s; }
+  .product-card:nth-child(4) { animation-delay: 0.15s; }
+  .product-card:nth-child(5) { animation-delay: 0.2s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    .nav-links, .nav-cta { display: none; }
+    .hero { padding: 50px 24px; flex-direction: column; gap: 40px; }
+    .hero-brand-circle { width: 200px; height: 200px; }
+    .hero-brand-circle .brand-name { font-size: 38px; }
+    .filter-bar { padding: 0 20px; overflow-x: auto; }
+    .products-section { padding: 40px 20px 80px; }
+    .cta-banner { flex-direction: column; margin: 0 20px 60px; padding: 40px 30px; }
+    footer, .footer-inner { flex-direction: column; gap: 16px; padding: 30px 20px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <div class="nav-logo-text">
+      <strong>Pro Brainwaves</strong>
+      <span>Investment Ltd</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="products.html" class="active">Products</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Order Wholesale</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">Official Distributor</div>
+    <h1>The <em>Pro Brainwaves</em><br>Product Range</h1>
+    <p>We are proud wholesale distributors of Laziz — one of Nigeria's fastest-growing FMCG brands, manufactured by Apple & Pears Limited. From premium vegetable oils to condiments and more.</p>
+  </div>
+  <div class="hero-brand">
+    <div class="hero-brand-circle">
+      <div class="brand-name">Laziz</div>
+      <div class="brand-line"></div>
+      <div class="brand-sub">by Apple &amp; Pears Ltd</div>
+      <div class="brand-desc" style="margin-top:10px">Premium quality food products trusted by Nigerian families</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Category:</span>
+  <button class="filter-btn active" onclick="filterProducts('all', this)">All Products</button>
+  <button class="filter-btn" onclick="filterProducts('oils', this)">Vegetable Oils</button>
+  <button class="filter-btn" onclick="filterProducts('condiments', this)">Condiments</button>
+  <button class="filter-btn" onclick="filterProducts('spreads', this)">Spreads</button>
+  <button class="filter-btn" onclick="filterProducts('custard', this)">Custard & Drinks</button>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products-section">
+
+  <!-- OILS -->
+  <div class="category-block" data-cat="oils">
+    <div class="category-header">
+      <div class="category-icon">🫙</div>
+      <div>
+        <h2>Laziz Vegetable Oils</h2>
+        <p>Triple-refined, cholesterol-free cooking oils enriched with Omega-3 & Omega-6</p>
+      </div>
+      <div class="category-count">4 Products</div>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#fffbf0">
+          <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="oil1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0c040"/><stop offset="100%" stop-color="#e8a020"/></linearGradient>
+              <linearGradient id="oilbody" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fef9e7"/><stop offset="100%" stop-color="#fdeaa0"/></linearGradient>
+            </defs>
+            <!-- Bottle body -->
+            <rect x="55" y="60" width="90" height="130" rx="18" fill="url(#oilbody)" stroke="#d4a020" stroke-width="2"/>
+            <!-- Bottle cap -->
+            <rect x="78" y="38" width="44" height="28" rx="8" fill="url(#oil1)" stroke="#c8850a" stroke-width="1.5"/>
+            <!-- Label -->
+            <rect x="63" y="90" width="74" height="80" rx="8" fill="#1a6b3c"/>
+            <text x="100" y="117" font-family="Georgia,serif" font-size="16" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="134" font-family="Arial" font-size="8.5" fill="white" text-anchor="middle">PURE VEGETABLE</text>
+            <text x="100" y="146" font-family="Arial" font-size="8.5" fill="white" text-anchor="middle">OIL</text>
+            <text x="100" y="162" font-family="Arial" font-size="10" font-weight="700" fill="#f0c853" text-anchor="middle">5 Litres</text>
+            <!-- Oil sheen -->
+            <ellipse cx="75" cy="110" rx="5" ry="18" fill="rgba(255,255,255,0.35)" rx="5"/>
+          </svg>
+          <span class="tag-popular">Best Seller</span>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Pure Vegetable Oil</div>
+          <div class="product-variants">
+            <span class="variant-chip">750ml</span>
+            <span class="variant-chip">1L</span>
+            <span class="variant-chip">1.6L</span>
+            <span class="variant-chip">3L</span>
+            <span class="variant-chip">5L</span>
+          </div>
+          <div class="product-desc">Triple-refined soybean oil, cholesterol-free and rich in Omega-3 & Omega-6. Ideal for frying, sautéing, baking, and dressings.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton (4 kegs)</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#f0f8ff">
+          <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="oil2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4a90d9"/><stop offset="100%" stop-color="#2c6faa"/></linearGradient>
+              <linearGradient id="oilbody2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8f4ff"/><stop offset="100%" stop-color="#b8d9f7"/></linearGradient>
+            </defs>
+            <rect x="55" y="60" width="90" height="130" rx="18" fill="url(#oilbody2)" stroke="#2c6faa" stroke-width="2"/>
+            <rect x="78" y="38" width="44" height="28" rx="8" fill="url(#oil2)" stroke="#1a4f80" stroke-width="1.5"/>
+            <rect x="63" y="90" width="74" height="80" rx="8" fill="#0d3d6e"/>
+            <text x="100" y="117" font-family="Georgia,serif" font-size="16" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="134" font-family="Arial" font-size="8" fill="white" text-anchor="middle">PREMIUM</text>
+            <text x="100" y="146" font-family="Arial" font-size="8" fill="white" text-anchor="middle">VEGETABLE OIL</text>
+            <text x="100" y="162" font-family="Arial" font-size="10" font-weight="700" fill="#f0c853" text-anchor="middle">5 Litres</text>
+            <ellipse cx="75" cy="110" rx="5" ry="18" fill="rgba(255,255,255,0.3)"/>
+          </svg>
+          <span class="tag-new">New</span>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Premium Vegetable Oil</div>
+          <div class="product-variants">
+            <span class="variant-chip">1L</span>
+            <span class="variant-chip">5L</span>
+          </div>
+          <div class="product-desc">Superior grade premium vegetable oil with enhanced clarity and taste. Perfect for high-heat cooking and commercial kitchens.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#fff8f0">
+          <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="oil3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e8a060"/><stop offset="100%" stop-color="#c07030"/></linearGradient>
+              <linearGradient id="oilbody3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff5e8"/><stop offset="100%" stop-color="#ffd9a0"/></linearGradient>
+            </defs>
+            <!-- Sachet shape -->
+            <rect x="50" y="50" width="100" height="140" rx="10" fill="url(#oilbody3)" stroke="#c07030" stroke-width="2"/>
+            <rect x="58" y="80" width="84" height="80" rx="6" fill="#8B2500"/>
+            <text x="100" y="108" font-family="Georgia,serif" font-size="15" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="125" font-family="Arial" font-size="8" fill="white" text-anchor="middle">VEGETABLE OIL</text>
+            <text x="100" y="140" font-family="Arial" font-size="8" fill="#ffd080" text-anchor="middle">SACHET</text>
+            <!-- tear line -->
+            <line x1="50" y1="55" x2="150" y2="55" stroke="#c07030" stroke-width="1.5" stroke-dasharray="6,3"/>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Vegetable Oil Sachet</div>
+          <div class="product-variants">
+            <span class="variant-chip">Single Serve</span>
+            <span class="variant-chip">Bulk Pack</span>
+          </div>
+          <div class="product-desc">Convenient sachet-packed vegetable oil for retail and food service use. Easy to distribute to corner shops and market traders.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Box</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#f5fff5">
+          <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="oil4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#40c080"/><stop offset="100%" stop-color="#1a8040"/></linearGradient>
+              <linearGradient id="oilbody4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8fff0"/><stop offset="100%" stop-color="#a0f0c0"/></linearGradient>
+            </defs>
+            <rect x="55" y="60" width="90" height="130" rx="18" fill="url(#oilbody4)" stroke="#1a8040" stroke-width="2"/>
+            <rect x="78" y="38" width="44" height="28" rx="8" fill="url(#oil4)" stroke="#106030" stroke-width="1.5"/>
+            <rect x="63" y="90" width="74" height="80" rx="8" fill="#1a6b3c"/>
+            <text x="100" y="115" font-family="Georgia,serif" font-size="14" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="130" font-family="Arial" font-size="7.5" fill="white" text-anchor="middle">ACTIVE GOLD</text>
+            <text x="100" y="143" font-family="Arial" font-size="7.5" fill="white" text-anchor="middle">VEGETABLE OIL</text>
+            <text x="100" y="162" font-family="Arial" font-size="10" font-weight="700" fill="#f0c853" text-anchor="middle">5 Litres</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Active Gold Vegetable Oil</div>
+          <div class="product-variants">
+            <span class="variant-chip">5L × 4 Kegs</span>
+          </div>
+          <div class="product-desc">The Active Gold variant offers a premium soybean oil blend, popular with businesses requiring consistent quality in bulk.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton (4 kegs)</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONDIMENTS -->
+  <div class="category-block" data-cat="condiments">
+    <div class="category-header">
+      <div class="category-icon">🥫</div>
+      <div>
+        <h2>Condiments & Dressings</h2>
+        <p>Delicious sauces, dressings, and condiments for every meal and occasion</p>
+      </div>
+      <div class="category-count">5 Products</div>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#fffef0">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:78%;height:78%">
+            <defs>
+              <linearGradient id="mayo1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fffdf0"/><stop offset="100%" stop-color="#f5edb0"/></linearGradient>
+            </defs>
+            <!-- Jar shape -->
+            <rect x="45" y="70" width="110" height="145" rx="22" fill="url(#mayo1)" stroke="#c8a020" stroke-width="2"/>
+            <!-- Lid -->
+            <rect x="42" y="48" width="116" height="30" rx="12" fill="#c8972a" stroke="#a07010" stroke-width="1.5"/>
+            <text x="100" y="69" font-family="Arial" font-size="10" font-weight="700" fill="white" text-anchor="middle">LAZIZ</text>
+            <!-- Label -->
+            <rect x="55" y="95" width="90" height="95" rx="10" fill="#1a6b3c"/>
+            <text x="100" y="123" font-family="Georgia,serif" font-size="15" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="140" font-family="Arial" font-size="9" fill="white" text-anchor="middle">REAL</text>
+            <text x="100" y="154" font-family="Arial" font-size="9" fill="white" text-anchor="middle">MAYONNAISE</text>
+            <text x="100" y="180" font-family="Arial" font-size="9" fill="#a0d8b0" text-anchor="middle">473 ml / 946 ml</text>
+            <!-- mayo blob -->
+            <ellipse cx="100" cy="200" rx="38" ry="10" fill="#fffef0" opacity="0.8"/>
+          </svg>
+          <span class="tag-popular">Top Seller</span>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Real Mayonnaise</div>
+          <div class="product-variants">
+            <span class="variant-chip">473ml</span>
+            <span class="variant-chip">946ml</span>
+          </div>
+          <div class="product-desc">Creamy, rich mayonnaise made from wholesome ingredients. Loved across Nigerian kitchens for sandwiches, coleslaw, and dressings.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#fff5f5">
+          <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" style="width:75%;height:75%">
+            <defs>
+              <linearGradient id="ketch1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff7070"/><stop offset="100%" stop-color="#c01010"/></linearGradient>
+            </defs>
+            <!-- squeeze bottle -->
+            <ellipse cx="100" cy="220" rx="50" ry="22" fill="#d01010"/>
+            <rect x="55" y="100" width="90" height="125" rx="30" fill="url(#ketch1)" stroke="#900010" stroke-width="1.5"/>
+            <!-- neck -->
+            <rect x="80" y="60" width="40" height="50" rx="10" fill="#c01010" stroke="#900010" stroke-width="1.5"/>
+            <!-- cap -->
+            <rect x="85" y="38" width="30" height="28" rx="8" fill="#333"/>
+            <!-- label -->
+            <rect x="63" y="118" width="74" height="80" rx="8" fill="rgba(255,255,255,0.15)"/>
+            <text x="100" y="147" font-family="Georgia,serif" font-size="14" font-weight="900" fill="white" text-anchor="middle">Laziz</text>
+            <text x="100" y="163" font-family="Arial" font-size="8.5" fill="rgba(255,255,255,0.9)" text-anchor="middle">ALL NATURAL</text>
+            <text x="100" y="176" font-family="Arial" font-size="8.5" fill="rgba(255,255,255,0.9)" text-anchor="middle">TOMATO KETCHUP</text>
+            <text x="100" y="192" font-family="Arial" font-size="9" font-weight="700" fill="#ffd080" text-anchor="middle">300g</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">All Natural Tomato Ketchup</div>
+          <div class="product-variants">
+            <span class="variant-chip">300g</span>
+          </div>
+          <div class="product-desc">Made from sun-ripened tomatoes with no artificial preservatives. A tangy-sweet ketchup perfect for fast food, snacks, and home cooking.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#f8fff8">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:78%;height:78%">
+            <defs>
+              <linearGradient id="island1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff9060"/><stop offset="100%" stop-color="#e05010"/></linearGradient>
+            </defs>
+            <rect x="48" y="68" width="104" height="145" rx="20" fill="#fff8f0" stroke="#d06020" stroke-width="2"/>
+            <rect x="45" y="46" width="110" height="30" rx="12" fill="url(#island1)" stroke="#c04010" stroke-width="1.5"/>
+            <text x="100" y="67" font-family="Arial" font-size="10" font-weight="700" fill="white" text-anchor="middle">LAZIZ</text>
+            <rect x="57" y="93" width="86" height="95" rx="8" fill="#1a4a8a"/>
+            <text x="100" y="120" font-family="Georgia,serif" font-size="13" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="137" font-family="Arial" font-size="8" fill="white" text-anchor="middle">THOUSAND ISLAND</text>
+            <text x="100" y="150" font-family="Arial" font-size="8" fill="white" text-anchor="middle">SALAD DRESSING</text>
+            <text x="100" y="178" font-family="Arial" font-size="9.5" font-weight="700" fill="#a0d0ff" text-anchor="middle">300ml</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Thousand Island Dressing</div>
+          <div class="product-variants">
+            <span class="variant-chip">300ml</span>
+          </div>
+          <div class="product-desc">Classic Thousand Island salad dressing — smooth, zesty, and perfectly balanced. Ideal for salads, wraps, burgers, and dipping sauces.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#f5f5ff">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:78%;height:78%">
+            <defs>
+              <linearGradient id="soy1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6a3010"/><stop offset="100%" stop-color="#3a1005"/></linearGradient>
+            </defs>
+            <rect x="60" y="65" width="80" height="150" rx="14" fill="#f0ece0" stroke="#6a3010" stroke-width="2"/>
+            <rect x="58" y="45" width="84" height="28" rx="8" fill="url(#soy1)" stroke="#2a0a02" stroke-width="1.5"/>
+            <text x="100" y="64" font-family="Arial" font-size="9" font-weight="700" fill="#f0c853" text-anchor="middle">LAZIZ</text>
+            <rect x="67" y="90" width="66" height="95" rx="6" fill="#2a0a02"/>
+            <text x="100" y="118" font-family="Georgia,serif" font-size="12" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="134" font-family="Arial" font-size="8" fill="white" text-anchor="middle">SOYA SAUCE</text>
+            <text x="100" y="160" font-family="Arial" font-size="7.5" fill="#c0b090" text-anchor="middle">All-Purpose</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Soya Sauce</div>
+          <div class="product-variants">
+            <span class="variant-chip">Standard Size</span>
+          </div>
+          <div class="product-desc">Rich, fermented soya sauce adding depth and umami flavour to stir-fries, marinades, soups, and countless Nigerian dishes.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#f8fff8">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:78%;height:78%">
+            <defs>
+              <linearGradient id="vin1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8e8ff"/><stop offset="100%" stop-color="#c0c0e8"/></linearGradient>
+            </defs>
+            <rect x="62" y="65" width="76" height="150" rx="14" fill="url(#vin1)" stroke="#6060b0" stroke-width="2"/>
+            <rect x="60" y="44" width="80" height="28" rx="8" fill="#6060b0" stroke="#404090" stroke-width="1.5"/>
+            <text x="100" y="63" font-family="Arial" font-size="9" font-weight="700" fill="white" text-anchor="middle">LAZIZ</text>
+            <rect x="69" y="90" width="62" height="95" rx="6" fill="#404090"/>
+            <text x="100" y="118" font-family="Georgia,serif" font-size="12" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="134" font-family="Arial" font-size="8" fill="white" text-anchor="middle">NATURAL</text>
+            <text x="100" y="147" font-family="Arial" font-size="8" fill="white" text-anchor="middle">VINEGAR</text>
+            <text x="100" y="175" font-family="Arial" font-size="7.5" fill="#b0b0f0" text-anchor="middle">All Natural</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Natural Vinegar</div>
+          <div class="product-variants">
+            <span class="variant-chip">Standard Size</span>
+          </div>
+          <div class="product-desc">All-natural vinegar for cooking, preserving, and seasoning. A kitchen essential used in salads, pickling, and flavour enhancement.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SPREADS -->
+  <div class="category-block" data-cat="spreads">
+    <div class="category-header">
+      <div class="category-icon">🧀</div>
+      <div>
+        <h2>Spreads & Chocolate</h2>
+        <p>Delicious spreads for breakfast, snacking, and baking</p>
+      </div>
+      <div class="category-count">3 Products</div>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#fffff0">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="cheese1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff8d0"/><stop offset="100%" stop-color="#f0d060"/></linearGradient>
+            </defs>
+            <rect x="45" y="68" width="110" height="145" rx="22" fill="url(#cheese1)" stroke="#d0a010" stroke-width="2"/>
+            <rect x="42" y="46" width="116" height="30" rx="12" fill="#d0a010" stroke="#a07010" stroke-width="1.5"/>
+            <text x="100" y="67" font-family="Arial" font-size="10" font-weight="700" fill="white" text-anchor="middle">LAZIZ</text>
+            <rect x="55" y="94" width="90" height="90" rx="10" fill="#1a6b3c"/>
+            <text x="100" y="122" font-family="Georgia,serif" font-size="13" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="138" font-family="Arial" font-size="8.5" fill="white" text-anchor="middle">CHEESE SPREAD</text>
+            <text x="100" y="175" font-family="Arial" font-size="9" fill="#d0a010" text-anchor="middle">▲ Premium Quality</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Cheese Spread</div>
+          <div class="product-variants">
+            <span class="variant-chip">Jar</span>
+          </div>
+          <div class="product-desc">Smooth and creamy cheese spread, perfect on bread, crackers, and snacks. A breakfast and snack-time favourite.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#fffdf8">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="butter1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff8e0"/><stop offset="100%" stop-color="#f8e080"/></linearGradient>
+            </defs>
+            <rect x="45" y="68" width="110" height="145" rx="22" fill="url(#butter1)" stroke="#c8a020" stroke-width="2"/>
+            <rect x="42" y="46" width="116" height="30" rx="12" fill="#e8b820" stroke="#b09000" stroke-width="1.5"/>
+            <text x="100" y="67" font-family="Arial" font-size="10" font-weight="700" fill="white" text-anchor="middle">LAZIZ</text>
+            <rect x="55" y="94" width="90" height="90" rx="10" fill="#8B4513"/>
+            <text x="100" y="122" font-family="Georgia,serif" font-size="13" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="138" font-family="Arial" font-size="8.5" fill="white" text-anchor="middle">BUTTER SPREAD</text>
+            <text x="100" y="175" font-family="Arial" font-size="9" fill="#c8a020" text-anchor="middle">Rich &amp; Creamy</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Butter Spread</div>
+          <div class="product-variants">
+            <span class="variant-chip">Jar</span>
+          </div>
+          <div class="product-desc">Rich, creamy butter spread crafted for everyday use. Ideal for bread, toast, baking, and cooking with a full buttery flavour.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#2a1a0a" style="background:linear-gradient(135deg, #3a200a, #1a0a00)">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="choc1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a2010"/><stop offset="100%" stop-color="#2a0a00"/></linearGradient>
+            </defs>
+            <rect x="45" y="68" width="110" height="145" rx="22" fill="url(#choc1)" stroke="#8a4020" stroke-width="2"/>
+            <rect x="42" y="46" width="116" height="30" rx="12" fill="#8a4020" stroke="#6a2010" stroke-width="1.5"/>
+            <text x="100" y="67" font-family="Arial" font-size="10" font-weight="700" fill="white" text-anchor="middle">LAZIZ</text>
+            <rect x="55" y="94" width="90" height="90" rx="10" fill="rgba(255,255,255,0.08)"/>
+            <text x="100" y="122" font-family="Georgia,serif" font-size="13" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="138" font-family="Arial" font-size="8.5" fill="rgba(255,255,255,0.85)" text-anchor="middle">CHOCOLATE</text>
+            <text x="100" y="151" font-family="Arial" font-size="8.5" fill="rgba(255,255,255,0.85)" text-anchor="middle">SPREAD</text>
+            <text x="100" y="175" font-family="Arial" font-size="9" fill="#f0a060" text-anchor="middle">Indulgent Flavour</text>
+          </svg>
+          <span class="tag-new">New</span>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Chocolate Spread</div>
+          <div class="product-variants">
+            <span class="variant-chip">Jar</span>
+          </div>
+          <div class="product-desc">Indulgent chocolate spread loved by children and adults alike. Perfect on bread, pancakes, waffles, and as a dessert topping.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CUSTARD & DRINKS -->
+  <div class="category-block" data-cat="custard">
+    <div class="category-header">
+      <div class="category-icon">🍵</div>
+      <div>
+        <h2>Custard & Chocolate Drinks</h2>
+        <p>Nourishing, instant breakfast and beverage products for the whole family</p>
+      </div>
+      <div class="category-count">4 Products</div>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#fffaf0">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="cust1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff5d0"/><stop offset="100%" stop-color="#f0d888"/></linearGradient>
+            </defs>
+            <!-- Tin/pack -->
+            <rect x="42" y="55" width="116" height="160" rx="12" fill="url(#cust1)" stroke="#c8a020" stroke-width="2"/>
+            <!-- Top lid -->
+            <rect x="40" y="42" width="120" height="22" rx="8" fill="#c8a020" stroke="#a07010" stroke-width="1.5"/>
+            <rect x="55" y="82" width="90" height="100" rx="8" fill="#c84010"/>
+            <text x="100" y="112" font-family="Georgia,serif" font-size="14" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="128" font-family="Arial" font-size="8" fill="white" text-anchor="middle">CUSTARD POWDER</text>
+            <text x="100" y="142" font-family="Arial" font-size="7.5" fill="rgba(255,255,255,0.8)" text-anchor="middle">3-IN-1 INSTANT MILK</text>
+            <text x="100" y="175" font-family="Arial" font-size="9" font-weight="700" fill="#c8a020" text-anchor="middle">400g / 1.5kg</text>
+          </svg>
+          <span class="tag-popular">Popular</span>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Custard Powder 3-in-1 Instant Milk</div>
+          <div class="product-variants">
+            <span class="variant-chip">400g</span>
+            <span class="variant-chip">1.5kg</span>
+          </div>
+          <div class="product-desc">A convenient 3-in-1 custard powder with instant milk included. Just add hot water for a wholesome, delicious breakfast for the family.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#1a0a00" style="background:linear-gradient(135deg,#2a1200,#0a0500)">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="cust2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6a2a00"/><stop offset="100%" stop-color="#2a0a00"/></linearGradient>
+            </defs>
+            <rect x="42" y="55" width="116" height="160" rx="12" fill="url(#cust2)" stroke="#8a4020" stroke-width="2"/>
+            <rect x="40" y="42" width="120" height="22" rx="8" fill="#8a4020" stroke="#6a2010" stroke-width="1.5"/>
+            <rect x="55" y="82" width="90" height="100" rx="8" fill="rgba(255,255,255,0.07)"/>
+            <text x="100" y="112" font-family="Georgia,serif" font-size="14" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="128" font-family="Arial" font-size="8" fill="rgba(255,255,255,0.9)" text-anchor="middle">CUSTARD POWDER</text>
+            <text x="100" y="142" font-family="Arial" font-size="7.5" fill="rgba(255,200,140,0.8)" text-anchor="middle">4-IN-1 CHOCOLATE</text>
+            <text x="100" y="175" font-family="Arial" font-size="9" font-weight="700" fill="#f0a060" text-anchor="middle">400g / 1.5kg</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Custard Powder 4-in-1 Instant Chocolate</div>
+          <div class="product-variants">
+            <span class="variant-chip">400g</span>
+            <span class="variant-chip">1.5kg</span>
+          </div>
+          <div class="product-desc">Upgraded 4-in-1 chocolate custard with added minerals. Kids and adults love this rich chocolate-flavoured instant breakfast treat.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Carton</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#1e0a00">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%">
+            <defs>
+              <linearGradient id="chocdrink1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4a1800"/><stop offset="100%" stop-color="#1a0600"/></linearGradient>
+            </defs>
+            <!-- Sachet -->
+            <rect x="52" y="48" width="96" height="160" rx="10" fill="url(#chocdrink1)" stroke="#7a3010" stroke-width="2"/>
+            <rect x="56" y="80" width="88" height="95" rx="8" fill="rgba(255,255,255,0.07)"/>
+            <text x="100" y="110" font-family="Georgia,serif" font-size="14" font-weight="900" fill="#f0c853" text-anchor="middle">Laziz</text>
+            <text x="100" y="128" font-family="Arial" font-size="8.5" fill="rgba(255,255,255,0.9)" text-anchor="middle">CHOCOLATE</text>
+            <text x="100" y="142" font-family="Arial" font-size="8.5" fill="rgba(255,255,255,0.9)" text-anchor="middle">DRINK</text>
+            <text x="100" y="165" font-family="Arial" font-size="9" font-weight="700" fill="#f08040" text-anchor="middle">20g Sachet</text>
+            <!-- steam lines -->
+            <path d="M80 55 Q84 48 80 42" stroke="rgba(255,200,150,0.4)" stroke-width="1.5" fill="none"/>
+            <path d="M100 52 Q104 44 100 38" stroke="rgba(255,200,150,0.4)" stroke-width="1.5" fill="none"/>
+            <path d="M120 55 Q124 48 120 42" stroke="rgba(255,200,150,0.4)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Laziz</div>
+          <div class="product-name">Chocolate Drink</div>
+          <div class="product-variants">
+            <span class="variant-chip">20g Sachet</span>
+          </div>
+          <div class="product-desc">Instant chocolate drink in a convenient sachet. Quick to prepare, rich in taste, and enjoyed hot or cold by the whole family.</div>
+          <div class="product-footer">
+            <div class="moq">MOQ: <span>Box</span></div>
+            <button class="btn-order" onclick="window.location.href='index.html#contact'">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div>
+    <h2>Ready to Place a Wholesale Order?</h2>
+    <p>We offer competitive pricing, flexible minimum order quantities, and reliable delivery across all 36 states. Get in touch with our team today to discuss your inventory needs.</p>
+  </div>
+  <div class="cta-banner-btns">
+    <a href="index.html#contact" class="btn-gold">Contact Sales Team</a>
+    <a href="tel:+2348167030580" class="btn-ghost">📞 Call Now</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p>© 2025 Pro Brainwaves Investment Ltd. Authorised Wholesale Distributor — Laziz Products.</p>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function filterProducts(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.category-block').forEach(block => {
+      if (cat === 'all' || block.dataset.cat === cat) {
+        block.style.display = '';
+      } else {
+        block.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>
